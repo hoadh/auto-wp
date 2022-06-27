@@ -15,7 +15,7 @@ services:
        - db
      image: wordpress:latest
      ports:
-       - "8000:80"
+       - "$PORT:80"
      restart: always
      volumes:
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
