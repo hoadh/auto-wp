@@ -10,6 +10,9 @@ services:
        MYSQL_DATABASE: wordpress
        MYSQL_USER: wordpress
        MYSQL_PASSWORD: wordpress
+       MYSQL_TCP_PORT: $DB_PORT
+     ports:
+      - "$DB_PORT:$DB_PORT"
    wordpress:
      depends_on:
        - db
@@ -20,9 +23,14 @@ services:
      volumes:
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
      environment:
-       WORDPRESS_DB_HOST: db:3306
+       WORDPRESS_DB_HOST: db:$DB_PORT
        WORDPRESS_DB_USER: wordpress
        WORDPRESS_DB_PASSWORD: wordpress
        WORDPRESS_DB_NAME: wordpress
 volumes:
     db_data: {}
+
+networks:
+  default:
+    external: true
+    name: ${NET_WORK}
