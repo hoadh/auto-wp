@@ -10,23 +10,25 @@ services:
        MYSQL_DATABASE: wordpress
        MYSQL_USER: wordpress
        MYSQL_PASSWORD: wordpress
-       MYSQL_TCP_PORT: $DB_PORT
+       MYSQL_TCP_PORT: ${DB_PORT}
      ports:
-      - "$DB_PORT:$DB_PORT"
+      - "${DB_PORT}:${DB_PORT}"
    wordpress:
      depends_on:
        - db
      image: wordpress:latest
      ports:
-       - "$PORT:80"
+       - "${PORT}:80"
      restart: always
      volumes:
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
      environment:
-       WORDPRESS_DB_HOST: db:$DB_PORT
+       WORDPRESS_DB_HOST: db:${DB_PORT}
        WORDPRESS_DB_USER: wordpress
        WORDPRESS_DB_PASSWORD: wordpress
        WORDPRESS_DB_NAME: wordpress
+       VIRTUAL_HOST: ${VIRTUAL_HOST}
+       LETSENCRYPT_HOST: ${VIRTUAL_HOST}
 volumes:
     db_data: {}
 

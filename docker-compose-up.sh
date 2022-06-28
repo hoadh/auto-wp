@@ -1,5 +1,5 @@
 # for d in ./*/ ; do (docker-compose up -d); done
 
 for i in $( ls | grep "project_" ); do
-    (cd "./$i" && docker-compose up -d);
+    (cd "./$i" && docker compose up -d);
 done
